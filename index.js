@@ -42,22 +42,39 @@ function groupWords() {
     for (var key in groupedWords) {
         var arr = groupedWords[key];
 
-        var text = "";
-        for( var i = 0; i < arr.length; i++ ) {
-            var obj = arr[ i ];
-
-            if (text.length == 0) {
-                text = obj['value'];  
-            } else {
-                text = text + ' - ' + obj['value'];
-            }
-        }
-
-        output += text + '\n';
+        console.log(arr[0]['value']);
+        output += matchWord(arr[0]['value']) + '\n';
      }
 
     return output; 
 } 
+
+function matchWord(word) {
+    var array;
+    var sortString = function(str) {
+        array = word.split("");
+        array.sort();
+        str = array.join("");
+
+        return str;
+    }
+
+    var text = "";
+    var matched = [];
+    words.forEach(function(value) {
+        if (sortString(value) == sortString(word) && value.length == word.length) {
+            if (text.length == 0) {
+                text = value;  
+            } else {
+                text = text + ' - ' + value;
+            }
+
+            matched.push(value);
+        }
+    })
+
+    return text;
+}
 
 function reverseRemoveParen() {
     var array;
